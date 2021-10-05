@@ -64,10 +64,56 @@
             color: white;
         }
 
-        
+        #main_container {
+            width: 90%;
+            margin: auto;
+            border: 2px solid red;
+            height: 1000px;
+        }
+
+        .slide_container {
+            width: 100%;
+            height: 50vh;
+            border: 2px solid black;
+            position: relative;
+
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 45%;
+            font-size: 40px;
+            font-weight: 800;
+            cursor: pointer;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.712);
+            padding: 8px 19px;
+            border-radius: 50%;
+        }
+
+        .next {
+            right: 1%;
+        }
+
+        .prev {
+            left: 1%;
+        }
     </style>
 
-   <link rel="stylesheet" href="">
+
 </head>
 
 <body>
@@ -85,6 +131,88 @@
             <li><a id="signup" href="signup.html">Signup</a></li>
         </ul>
     </nav>
+
+    <div id="main_container">
+        <div class="slide_container">
+
+
+        </div>
+
+    </div>
 </body>
 
 </html>
+
+<script>
+
+
+    let images = ["https://cdn.pixabay.com/photo/2021/09/29/13/17/redwood-national-park-6667452_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2016/04/14/13/06/landscape-1328858__340.jpg",
+        "https://cdn.pixabay.com/photo/2017/08/10/00/52/house-2616607_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2020/11/03/16/13/road-5710320__340.jpg"];
+
+    let slide_container = document.querySelector(".slide_container");
+
+
+    let prev = document.createElement("span");
+    prev.setAttribute("class", "arrow prev");
+    prev.textContent = "<"
+
+    let next = document.createElement("span");
+    next.setAttribute("class", "arrow next");
+    next.textContent = ">"
+
+    slide_container.append(prev);
+    slide_container.append(next);
+
+
+
+    for (let i = 0; i < images.length; i++) {
+        let slide = document.createElement("div");
+        slide.setAttribute("class", "slide")
+        var img = document.createElement("img");
+        img.src = images[i];
+        slide.append(img);
+        slide_container.append(slide)
+
+    }
+
+    let counter = 0;
+
+    let slide = document.querySelectorAll(".slide");
+
+    slide[counter].style.display = "block"
+
+    next.onclick = function () {
+        slide[counter].style.display = "none"
+        counter = (counter + 1) % slide.length;
+        slide[counter].style.display = "block"
+
+        console.log(counter);
+    }
+
+    prev.onclick = function () {
+
+
+     
+            if (counter == 0) {
+                slide[counter].style.display = "none";
+                slide[slide.length - 1].style.display = "block";
+                counter = slide.length - 1;
+            }
+            else {
+                slide[counter].style.display = "none";
+                counter = (counter - 1) % slide.length
+                slide[counter].style.display = "block"
+
+
+            }
+
+
+    }
+
+
+
+
+
+</script>
